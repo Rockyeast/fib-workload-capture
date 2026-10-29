@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fib-workload-capture"
+version = "0.1.0"
+description = "Capture real operator workloads from SGLang/vLLM inference into FlashInfer-Bench datasets"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Rockyeast" }]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  # PyPI flashinfer-bench 0.1.2 predates flashinfer_bench.data.validate (#386); pin upstream main.
+  "flashinfer-bench @ git+https://github.com/flashinfer-ai/flashinfer-bench.git@15618a67e8d7b7f49ca61b5ba3b9f26a876d0bee",
+  "torch>=2.8.0",
+  "safetensors>=0.5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0.0", "ruff>=0.1.0"]
+
+[project.urls]
+Repository = "https://github.com/Rockyeast/fib-workload-capture"
+Upstream = "https://github.com/flashinfer-ai/flashinfer-bench"
+
+[tool.setuptools.packages.find]
+include = ["fib_workload_capture*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+# Same rule set as flashinfer-bench.
+ignore = ["C901", "E501", "E741", "F402", "F823", "E731"]
+select = ["C", "E", "F", "W", "TID252"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: requires a CUDA GPU or a running SGLang/vLLM engine"]

@@ -1,0 +1,15 @@
+FlashInfer-Bench
+
+Copyright (c) 2025 by FlashInfer-Bench Contributors
+
+This project includes code derived from FlashInfer-Bench
+(https://github.com/flashinfer-ai/flashinfer-bench), licensed under the
+Apache License, Version 2.0:
+
+- fib_workload_capture/tracing/runtime.py: vendored from
+  flashinfer_bench/tracing/runtime.py, with the CollectResult change from
+  flashinfer-bench PR #428 and updated import paths.
+- fib_workload_capture/tracing/presets.py: the dump_structural policy added to
+  flashinfer_bench/tracing/presets.py by flashinfer-bench PR #428.
+- fib_workload_capture/tracing/sanitize.py: derived from
+  scripts/sanitize_dumps.py, moved into a package and modified.
